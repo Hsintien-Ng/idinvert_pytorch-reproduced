@@ -143,7 +143,8 @@ def training_loop(
             log_message = f'D-[real:{loss_real.cpu().detach().numpy():.3f}, ' \
                           f'fake:{loss_fake.cpu().detach().numpy():.3f}, ' \
                           f'gp:{loss_gp.cpu().detach().numpy():.3f}]'
-            D_loss = loss_real_weight * loss_real + loss_fake_weight * loss_fake + loss_gp_weight * loss_gp + loss_ep_weight * (loss_real * loss_real)
+            D_loss = loss_real_weight * loss_real + loss_fake_weight * loss_fake + loss_gp_weight * loss_gp
+            optimizer_D.zero_grad()
             D_loss.backward()
             optimizer_D.step()
 
